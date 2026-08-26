@@ -1,0 +1,66 @@
+name: CI
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+  workflow_dispatch:
+
+env:
+  APP_ENV: test
+
+jobs:
+  smoke:
+    name: La base démarre, l'application se sert
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Installer PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: ctype, iconv, intl, pdo_pgsql
+          coverage: none
+
+      # La CLI Symfony détecte les services Docker Compose et injecte les
+      # variables correspondantes (DATABASE_URL, MAILER_DSN) dans l'application.
+      # Les ports du compose.override.yaml ne sont pas fixés, donc sans elle
+      # on ne saurait pas sur quel port la base écoute.
+      - name: Installer la CLI Symfony
+        run: |
+          curl -sS https://get.symfony.com/cli/installer | bash
+          echo "$HOME/.symfony5/bin" >> "$GITHUB_PATH"
+
+      - name: Installer les dépendances
+        run: composer install --no-interaction --no-progress --prefer-dist
+
+      - name: Démarrer les conteneurs
+        run: docker compose up --detach --wait
+
+      - name: Vérifier que la base de données répond
+        run: |
+          symfony console doctrine:database:create --if-not-exists --no-interaction
+          symfony console dbal:run-sql 'SELECT 1'
+
+      - name: Servir l'application et vérifier sa réponse
+        run: |
+          symfony server:start --daemon --no-tls --port=8000
+          status=$(curl -sS -o /tmp/response.html -w '%{http_code}' \
+            --retry 5 --retry-connrefused --retry-delay 2 \
+            http://127.0.0.1:8000/)
+          echo "L'application a répondu HTTP $status"
+          symfony server:stop
+          # Un squelette sans route répond 404 sur la page d'accueil, ce qui est
+          # attendu. Ce qu'on vérifie ici, c'est que le serveur démarre et que
+          # PHP ne casse pas : toute réponse 5xx est un échec.
+          if [ "$status" -ge 500 ]; then
+            echo "::error::L'application a répondu $status"
+            cat /tmp/response.html
+            exit 1
+          fi
+
+      - name: Arrêter les conteneurs
+        if: always()
+        run: docker compose down --volumes
