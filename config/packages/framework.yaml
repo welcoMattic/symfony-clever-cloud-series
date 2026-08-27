@@ -2,6 +2,10 @@
 framework:
     secret: '%env(APP_SECRET)%'
 
+    # Sur Clever, le trafic arrive par un reverse proxy : sans cette ligne,
+    # Symfony croit toutes les requêtes en HTTP et voit l'IP du proxy.
+    trusted_proxies: '%env(TRUSTED_PROXIES)%'
+
     # Note that the session will be started ONLY if you read or write from it.
     session: true
 

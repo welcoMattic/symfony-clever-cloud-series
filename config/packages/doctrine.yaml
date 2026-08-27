@@ -1,10 +1,17 @@
+parameters:
+    # Repli utilisé en local, quand aucun add-on Clever n'est branché.
+    app.database_url_fallback: '%env(resolve:DATABASE_URL)%'
+
 doctrine:
     dbal:
-        url: '%env(resolve:DATABASE_URL)%'
+        # Sur Clever, l'add-on PostgreSQL injecte POSTGRESQL_ADDON_URI et cette
+        # valeur gagne. En local, la variable n'existe pas et Doctrine retombe
+        # sur DATABASE_URL, lu depuis .env.
+        url: '%env(default:app.database_url_fallback:POSTGRESQL_ADDON_URI)%'
 
-        # IMPORTANT: You MUST configure your server version,
-        # either here or in the DATABASE_URL env var (see .env file)
-        #server_version: '16'
+        # L'URI de l'add-on ne porte pas de serverVersion : sans cette
+        # ligne, la connexion ne peut pas être construite.
+        server_version: '%env(DATABASE_SERVER_VERSION)%'
 
         profiling_collect_backtrace: '%kernel.debug%'
     orm:
