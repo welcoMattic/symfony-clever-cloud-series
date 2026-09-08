@@ -12,6 +12,15 @@ framework:
     #esi: true
     #fragments: true
 
+when@prod:
+    framework:
+        session:
+            # L'add-on Redis injecte REDIS_URL, que SessionHandlerFactory
+            # reconnaît : les sessions deviennent partagées entre les instances.
+            # Indispensable sur le runtime frankenphp, où la plateforme ne monte
+            # aucun stockage de sessions.
+            handler_id: '%env(REDIS_URL)%'
+
 when@test:
     framework:
         test: true

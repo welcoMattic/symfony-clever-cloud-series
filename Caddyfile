@@ -1,0 +1,15 @@
+# Exemple laissé inactif : sans CC_RUN_COMMAND, la plateforme démarre
+# `frankenphp php-server`, qui lit CC_WEBROOT et CC_FRANKENPHP_WORKER, et ce
+# fichier n'est chargé par personne. Pour le prendre en main :
+#
+#   clever env set -a franken CC_RUN_COMMAND "frankenphp run --config /chemin/vers/Caddyfile"
+#
+# Le port d'écoute, la racine servie et le worker reviennent alors à ce fichier,
+# et une application qui n'écoute pas sur 8080 échoue au healthcheck.
+:8080 {
+	encode zstd br gzip
+	root public/
+	php_server {
+		worker ./public/index.php
+	}
+}

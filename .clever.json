@@ -1,0 +1,20 @@
+{
+  "apps": [
+    {
+      "app_id": "app_xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+      "org_id": "orga_xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+      "deploy_url": "https://push-par-clevercloud-customers.services.clever-cloud.com/app_xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx.git",
+      "git_ssh_url": "git+ssh://git@push-par-clevercloud-customers.services.clever-cloud.com/app_xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx.git",
+      "name": "symfony-clever-demo",
+      "alias": "symfony-clever-demo"
+    },
+    {
+      "app_id": "app_yyyyyyyy-yyyy-yyyy-yyyy-yyyyyyyyyyyy",
+      "org_id": "orga_xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+      "deploy_url": "https://push-par-clevercloud-customers.services.clever-cloud.com/app_yyyyyyyy-yyyy-yyyy-yyyy-yyyyyyyyyyyy.git",
+      "git_ssh_url": "git+ssh://git@push-par-clevercloud-customers.services.clever-cloud.com/app_yyyyyyyy-yyyy-yyyy-yyyy-yyyyyyyyyyyy.git",
+      "name": "symfony-clever-franken",
+      "alias": "franken"
+    }
+  ]
+}
