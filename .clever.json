@@ -1,0 +1,11 @@
+{
+  "apps": [
+    {
+      "app_id": "app_xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+      "org_id": "user_xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+      "deploy_url": "https://push-par-clevercloud-customers.services.clever-cloud.com/app_xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx.git",
+      "name": "symfony-clever-demo",
+      "alias": "symfony-clever-demo"
+    }
+  ]
+}
