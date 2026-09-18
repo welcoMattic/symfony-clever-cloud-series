@@ -1,0 +1,40 @@
+name: Deploy to Clever Cloud
+
+on:
+  # L'article déclenche sur `main`. Dans ce dépôt, chaque article vit sur sa
+  # propre branche : le déclencheur nomme donc celle de l'article 4.
+  push:
+    branches: [04-ci-cd]
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Tests unitaires
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: intl, pdo_pgsql
+      - run: composer install --no-interaction --prefer-dist
+      - run: vendor/bin/phpunit
+
+  deploy:
+    name: Déploiement
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # Un déploiement Clever est un push git : il lui faut tout l'historique.
+          fetch-depth: 0
+      - uses: 47ng/actions-clever-cloud@v2.2.0
+        with:
+          # Le `.clever.json` de ce dépôt ne porte que des gabarits, pour ne pas
+          # publier les identifiants des applications de la série : l'`appID`
+          # prend le pas sur l'alias, et vient d'un secret du dépôt.
+          appID: ${{ secrets.CLEVER_APP_ID }}
+        env:
+          CLEVER_TOKEN: ${{ secrets.CLEVER_TOKEN }}
+          CLEVER_SECRET: ${{ secrets.CLEVER_SECRET }}
