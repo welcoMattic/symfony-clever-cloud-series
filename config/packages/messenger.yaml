@@ -22,5 +22,6 @@ framework:
             Symfony\Component\Notifier\Message\ChatMessage: async
             Symfony\Component\Notifier\Message\SmsMessage: async
 
-            # Route your messages to the transports
-            # 'App\Message\YourMessage': async
+            # Sans cette ligne, le message serait traité en synchrone dans le
+            # processus qui le dispatche, et le worker n'aurait rien à consommer.
+            App\Message\SendWelcomeEmail: async

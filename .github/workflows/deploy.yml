@@ -2,9 +2,9 @@ name: Deploy to Clever Cloud
 
 on:
   # L'article déclenche sur `main`. Dans ce dépôt, chaque article vit sur sa
-  # propre branche : le déclencheur nomme donc celle de l'article 4.
+  # propre branche : le déclencheur nomme donc celle de l'article en cours.
   push:
-    branches: [04-ci-cd]
+    branches: [05-workers]
   workflow_dispatch:
 
 jobs:
