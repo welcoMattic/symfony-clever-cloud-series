@@ -46,6 +46,10 @@ La CLI Symfony découvre le conteneur PostgreSQL et injecte `DATABASE_URL` d'ell
 
 > **Transparence.** Je suis ambassadeur Clever Cloud. J'écris cette série en toute indépendance, personne chez eux ne la relit, et je m'y autorise les mêmes critiques que sur n'importe quelle autre plateforme.
 
+## Sponsors
+
+Si ce projet vous est utile, vous pouvez soutenir mon travail open source sur [GitHub Sponsors](https://github.com/sponsors/welcoMattic). Les paliers et ce qu'ils financent : [blog.welcomattic.com/sponsors](https://blog.welcomattic.com/sponsors/). À partir du palier Company (100 $ par mois), votre logo et un lien apparaissent ici.
+
 ---
 
 # Symfony on Clever Cloud
@@ -95,3 +99,7 @@ symfony serve
 The Symfony CLI discovers the PostgreSQL container and injects `DATABASE_URL` on its own: there is nothing to wire by hand. A smoke CI (`.github/workflows/ci.yaml`) replays these steps on every push, and checks that the database answers and that the application is served without a 5xx error.
 
 > **Disclosure.** I am a Clever Cloud ambassador. This series is written independently, nobody there reviews it, and I allow myself the same criticism I would apply to any other platform.
+
+## Sponsors
+
+If this project is useful to you, you can support my open source work on [GitHub Sponsors](https://github.com/sponsors/welcoMattic). Tiers and what they fund: [blog.welcomattic.com/sponsors/en](https://blog.welcomattic.com/sponsors/en/). From the Company tier ($100 a month), your logo and a link appear here.
