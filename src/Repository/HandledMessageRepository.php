@@ -42,4 +42,17 @@ class HandledMessageRepository extends ServiceEntityRepository
 
         return true;
     }
+
+    /**
+     * Supprime les clés enregistrées avant `$limit`, et dit combien sont parties.
+     */
+    public function purgeOlderThan(\DateTimeImmutable $limit): int
+    {
+        return $this->createQueryBuilder('m')
+            ->delete()
+            ->where('m.handledAt < :limit')
+            ->setParameter('limit', $limit)
+            ->getQuery()
+            ->execute();
+    }
 }

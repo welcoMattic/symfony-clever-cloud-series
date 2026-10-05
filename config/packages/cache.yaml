@@ -15,5 +15,17 @@ framework:
         #app: cache.adapter.apcu
 
         # Namespaced pools use the above "app" backend by default
-        #pools:
-            #my.dedicated.cache: null
+        pools:
+            # Où le Scheduler retient sa dernière exécution. En local, le pool
+            # `app` suffit.
+            cache.scheduler: null
+
+when@prod:
+    framework:
+        cache:
+            pools:
+                # En production, cet état doit être partagé par toutes les
+                # instances et survivre aux déploiements : l'add-on Redis.
+                cache.scheduler:
+                    adapter: cache.adapter.redis
+                    provider: '%env(REDIS_URL)%'

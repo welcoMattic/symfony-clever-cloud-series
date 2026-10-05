@@ -1,0 +1,8 @@
+framework:
+    lock: '%env(LOCK_DSN)%'
+
+when@prod:
+    framework:
+        # Le verrou du Scheduler doit être partagé par toutes les instances :
+        # celui de l'add-on Redis, déjà utilisé pour les sessions, fait l'affaire.
+        lock: '%env(REDIS_URL)%'

@@ -15,6 +15,14 @@
       "git_ssh_url": "git+ssh://git@push-par-clevercloud-customers.services.clever-cloud.com/app_yyyyyyyy-yyyy-yyyy-yyyy-yyyyyyyyyyyy.git",
       "name": "symfony-clever-franken",
       "alias": "franken"
+    },
+    {
+      "app_id": "app_zzzzzzzz-zzzz-zzzz-zzzz-zzzzzzzzzzzz",
+      "org_id": "orga_xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+      "deploy_url": "https://push-par-clevercloud-customers.services.clever-cloud.com/app_zzzzzzzz-zzzz-zzzz-zzzz-zzzzzzzzzzzz.git",
+      "git_ssh_url": "git+ssh://git@push-par-clevercloud-customers.services.clever-cloud.com/app_zzzzzzzz-zzzz-zzzz-zzzz-zzzzzzzzzzzz.git",
+      "name": "symfony-clever-task",
+      "alias": "symfony-clever-task"
     }
   ]
 }

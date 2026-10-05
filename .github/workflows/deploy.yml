@@ -4,7 +4,7 @@ on:
   # L'article déclenche sur `main`. Dans ce dépôt, chaque article vit sur sa
   # propre branche : le déclencheur nomme donc celle de l'article en cours.
   push:
-    branches: [05-workers]
+    branches: [06-recurring]
   workflow_dispatch:
 
 jobs:

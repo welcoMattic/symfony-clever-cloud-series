@@ -1,0 +1,27 @@
+name: Purge du registre (Clever Task)
+
+# Pas de `schedule:` ici : la file des crons de GitHub décale les passages de
+# plusieurs heures, et en abandonne parfois. La purge nocturne appartient au
+# Scheduler de l'application. Ce workflow ne sert qu'à la lancer à la demande.
+on:
+  workflow_dispatch:
+
+jobs:
+  task:
+    name: Lancer la Clever Task
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # Comme pour le déploiement : un déploiement Clever est un push git.
+          fetch-depth: 0
+      # Déployer une Task, c'est l'exécuter. Si le code n'a pas changé depuis le
+      # dernier passage, `restart` relance la commande sur le même commit au lieu
+      # d'échouer.
+      - uses: 47ng/actions-clever-cloud@v2.2.0
+        with:
+          appID: ${{ secrets.CLEVER_TASK_APP_ID }}
+          sameCommitPolicy: restart
+        env:
+          CLEVER_TOKEN: ${{ secrets.CLEVER_TOKEN }}
+          CLEVER_SECRET: ${{ secrets.CLEVER_SECRET }}
